@@ -39,6 +39,10 @@ def game_condition():
     if board[0][0] != -1 and board[0][0] == board[1][1] == board[2][2]:
         return board[0][0]
     
+    count = sum(sublist.count(-1) for sublist in board)
+    if count == 0:
+        return -2
+    
     return -1
 
 def draw_popup(text):
@@ -86,7 +90,7 @@ while run:
     winner = game_condition()
 
     winner = game_condition()
-    if winner != -1:
+    if winner != -1 and winner != -2:
         if winner == 'O':
             winner = 1
         else:
@@ -95,5 +99,9 @@ while run:
         pygame.display.update()
         pygame.time.wait(3000)  # Wait for 2 seconds
         run = False
+    elif winner == -2:
+        draw_popup("It's a tie!")
+        pygame.display.update()
+        pygame.time.wait(3000)
 
 pygame.quit()
