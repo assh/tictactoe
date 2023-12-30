@@ -21,23 +21,35 @@ def draw_grid():
             pygame.draw.rect(WIN, (0, 0, 0), (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 1)
             if board[row][col] != -1:
                 if board[row][col] == 'O':
-                    pygame.draw.circle(WIN, (0, 0, 0), (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), SQUARE_SIZE//2 - 10, 1)
+                    pygame.draw.circle(WIN, (0, 0, 0), (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), SQUARE_SIZE//2 - 10, 5)
                 else:
-                    pygame.draw.line(WIN, (0, 0, 0), (col * SQUARE_SIZE + 10, row * SQUARE_SIZE + 10), (col * SQUARE_SIZE + SQUARE_SIZE - 10, row * SQUARE_SIZE + SQUARE_SIZE - 10), 1)
-                    pygame.draw.line(WIN, (0, 0, 0), (col * SQUARE_SIZE + SQUARE_SIZE - 10, row * SQUARE_SIZE + 10), (col * SQUARE_SIZE + 10, row * SQUARE_SIZE + SQUARE_SIZE - 10), 1)
+                    pygame.draw.line(WIN, (0, 0, 0), (col * SQUARE_SIZE + 10, row * SQUARE_SIZE + 10), (col * SQUARE_SIZE + SQUARE_SIZE - 10, row * SQUARE_SIZE + SQUARE_SIZE - 10), 5)
+                    pygame.draw.line(WIN, (0, 0, 0), (col * SQUARE_SIZE + SQUARE_SIZE - 10, row * SQUARE_SIZE + 10), (col * SQUARE_SIZE + 10, row * SQUARE_SIZE + SQUARE_SIZE - 10), 5)
 
 
 def game_condition():
+    # Check rows
     for row in range(ROWS):
         if board[row][0] != -1 and board[row][0] == board[row][1] == board[row][2]:
             return board[row][0]
     
+    # Check columns
     for col in range(COLS):
         if board[0][col] != -1 and board[0][col] == board[1][col] == board[2][col]:
             return board[0][col]
     
+    # Check main diagonal
     if board[0][0] != -1 and board[0][0] == board[1][1] == board[2][2]:
         return board[0][0]
+    
+    # Check secondary diagonal
+    if board[0][2] != -1 and board[0][2] == board[1][1] == board[2][0]:
+        return board[0][2]
+    
+    # Check for tie
+    count = sum(row.count(-1) for row in board)
+    if count == 0:
+        return -2
     
     return -1
 
@@ -86,14 +98,19 @@ while run:
     winner = game_condition()
 
     winner = game_condition()
-    if winner != -1:
+    if winner != -1 and winner != -2:
         if winner == 'O':
             winner = 1
         else:
             winner = 2
         draw_popup(f"Player {winner} wins!")
         pygame.display.update()
-        pygame.time.wait(3000)  # Wait for 2 seconds
+        pygame.time.wait(2500)  # Wait for 2 seconds
+        run = False
+    elif winner == -2:
+        draw_popup("It's a tie!")
+        pygame.display.update()
+        pygame.time.wait(2500)
         run = False
 
 pygame.quit()
