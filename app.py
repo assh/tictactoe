@@ -62,7 +62,6 @@ def draw_popup(text):
     WIN.blit(popup, ((WIDTH - 200) // 2, (HEIGHT - 100) // 2))  # Adjust the size as needed
         
 
-
 run = True
 current_player = 1
 while run:
@@ -96,12 +95,5 @@ while run:
         pygame.display.update()
         pygame.time.wait(3000)  # Wait for 2 seconds
         run = False
-
-    
-
-
-
-
-
 
 pygame.quit()
