@@ -27,6 +27,22 @@ def draw_grid():
                     pygame.draw.line(WIN, (0, 0, 0), (col * SQUARE_SIZE + SQUARE_SIZE - 10, row * SQUARE_SIZE + 10), (col * SQUARE_SIZE + 10, row * SQUARE_SIZE + SQUARE_SIZE - 10), 1)
 
 
+def game_condition():
+    for row in range(ROWS):
+        if board[row][0] != -1 and board[row][0] == board[row][1] == board[row][2]:
+            return board[row][0]
+    
+    for col in range(COLS):
+        if board[0][col] != -1 and board[0][col] == board[1][col] == board[2][col]:
+            return board[0][col]
+    
+    if board[0][0] != -1 and board[0][0] == board[1][1] == board[2][2]:
+        return board[0][0]
+    
+    return -1
+        
+
+
 run = True
 current_player = 1
 while run:
@@ -47,5 +63,10 @@ while run:
     
     draw_grid()
     pygame.display.update()
+    
+    if game_condition() != -1:
+        run = False
+
+
 
 pygame.quit()
