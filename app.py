@@ -40,6 +40,26 @@ def game_condition():
         return board[0][0]
     
     return -1
+
+def draw_popup(text):
+    # Create a new surface (i.e., a popup)
+    popup = pygame.Surface((200, 100))  # Adjust the size as needed
+    popup.fill((200, 200, 200))  # Adjust the color as needed
+
+    # Create a font object
+    font = pygame.font.Font(None, 36)  # Adjust the size as needed
+
+    # Render the text
+    text_surface = font.render(text, True, (0, 0, 0))  # Adjust the color as needed
+
+    # Get the width and height of the text surface
+    text_width, text_height = text_surface.get_size()
+
+    # Draw the text onto the popup surface
+    popup.blit(text_surface, ((200 - text_width) // 2, (100 - text_height) // 2))  # Adjust the size as needed
+
+    # Draw the popup onto the main surface
+    WIN.blit(popup, ((WIDTH - 200) // 2, (HEIGHT - 100) // 2))  # Adjust the size as needed
         
 
 
@@ -63,9 +83,24 @@ while run:
     
     draw_grid()
     pygame.display.update()
-    
-    if game_condition() != -1:
+
+    winner = game_condition()
+
+    winner = game_condition()
+    if winner != -1:
+        if winner == 'O':
+            winner = 1
+        else:
+            winner = 2
+        draw_popup(f"Player {winner} wins!")
+        pygame.display.update()
+        pygame.time.wait(3000)  # Wait for 2 seconds
         run = False
+
+    
+
+
+
 
 
 
