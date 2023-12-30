@@ -105,12 +105,12 @@ while run:
             winner = 2
         draw_popup(f"Player {winner} wins!")
         pygame.display.update()
-        pygame.time.wait(3000)  # Wait for 2 seconds
+        pygame.time.wait(2500)  # Wait for 2 seconds
         run = False
     elif winner == -2:
         draw_popup("It's a tie!")
         pygame.display.update()
-        pygame.time.wait(3000)
+        pygame.time.wait(2500)
         run = False
 
 pygame.quit()
