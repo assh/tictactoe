@@ -72,44 +72,47 @@ def draw_popup(text):
     # Draw the popup onto the main surface
     WIN.blit(popup, ((WIDTH - 200) // 2, (HEIGHT - 100) // 2))  # Adjust the size as needed
         
-
-run = True
-current_player = 1
-while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+def main():
+    run = True
+    current_player = 1
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                col = x // SQUARE_SIZE
+                row = y // SQUARE_SIZE
+                if board[row][col] == -1:
+                    if current_player == 1:
+                        board[row][col] = 'O'                   
+                    else:
+                        board[row][col] = 'X'
+                    current_player = current_player * -1
         
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = pygame.mouse.get_pos()
-            col = x // SQUARE_SIZE
-            row = y // SQUARE_SIZE
-            if board[row][col] == -1:
-                if current_player == 1:
-                    board[row][col] = 'O'                   
-                else:
-                    board[row][col] = 'X'
-                current_player = current_player * -1
-    
-    draw_grid()
-    pygame.display.update()
-
-    winner = game_condition()
-
-    winner = game_condition()
-    if winner != -1 and winner != -2:
-        if winner == 'O':
-            winner = 1
-        else:
-            winner = 2
-        draw_popup(f"Player {winner} wins!")
+        draw_grid()
         pygame.display.update()
-        pygame.time.wait(2500)  # Wait for 2 seconds
-        run = False
-    elif winner == -2:
-        draw_popup("It's a tie!")
-        pygame.display.update()
-        pygame.time.wait(2500)
-        run = False
 
-pygame.quit()
+        winner = game_condition()
+
+        winner = game_condition()
+        if winner != -1 and winner != -2:
+            if winner == 'O':
+                winner = 1
+            else:
+                winner = 2
+            draw_popup(f"Player {winner} wins!")
+            pygame.display.update()
+            pygame.time.wait(2500)  # Wait for 2 seconds
+            run = False
+        elif winner == -2:
+            draw_popup("It's a tie!")
+            pygame.display.update()
+            pygame.time.wait(2500)
+            run = False
+
+    pygame.quit()
+
+if __name__ == '__main__':
+    main()
