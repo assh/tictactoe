@@ -31,8 +31,6 @@ def main():
         pygame.display.update()
 
         winner = game_condition()
-
-        winner = game_condition()
         if winner != -1 and winner != -2:
             if winner == 'O':
                 winner = 1
