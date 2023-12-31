@@ -7,6 +7,7 @@ from globals import SQUARE_SIZE, board
 def main():
     pygame.init()
     pygame.display.set_caption("Tic Tac Toe")
+    clock = pygame.time.Clock()
 
     run = True
     current_player = 1
@@ -16,6 +17,7 @@ def main():
     players = {1: player1, -1: player2}
     
     while run:
+        clock.tick(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
