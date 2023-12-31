@@ -3,16 +3,21 @@ from visual import draw_grid, draw_popup
 from logic import game_condition
 from globals import SQUARE_SIZE, board
 
-
         
 def main():
     pygame.init()
     pygame.display.set_caption("Tic Tac Toe")
+    clock = pygame.time.Clock()
 
     run = True
     current_player = 1
+
+    player1 = input("Enter player 1 name: ")
+    player2 = input("Enter player 2 name: ")
+    players = {1: player1, -1: player2}
     
     while run:
+        clock.tick(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -37,7 +42,7 @@ def main():
                 winner = 1
             else:
                 winner = 2
-            draw_popup(f"Player {winner} wins!")
+            draw_popup(f"{players[current_player]} wins!")
             pygame.display.update()
             pygame.time.wait(2500)  # Wait for 2 seconds
             run = False
@@ -46,6 +51,8 @@ def main():
             pygame.display.update()
             pygame.time.wait(2500)
             run = False
+
+        print(f"It's {players[current_player]}'s turn.")
 
     pygame.quit()
 
