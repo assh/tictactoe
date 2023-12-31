@@ -3,7 +3,7 @@ from visual import draw_grid, draw_popup
 from logic import game_condition
 from globals import SQUARE_SIZE, board
 
-        
+
 def main():
     pygame.init()
     pygame.display.set_caption("Tic Tac Toe")
@@ -15,13 +15,13 @@ def main():
     player1 = input("Enter player 1 name: ")
     player2 = input("Enter player 2 name: ")
     players = {1: player1, -1: player2}
-    
+
     while run:
         clock.tick(10)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 col = x // SQUARE_SIZE
@@ -33,7 +33,7 @@ def main():
                         board[row][col] = 'X'
                     winner_player = current_player
                     current_player = current_player * -1
-        
+
         draw_grid()
         pygame.display.update()
 
