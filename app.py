@@ -10,6 +10,10 @@ def main():
 
     run = True
     current_player = 1
+
+    player1 = input("Enter player 1 name: ")
+    player2 = input("Enter player 2 name: ")
+    players = {1: player1, -1: player2}
     
     while run:
         for event in pygame.event.get():
@@ -36,7 +40,7 @@ def main():
                 winner = 1
             else:
                 winner = 2
-            draw_popup(f"Player {winner} wins!")
+            draw_popup(f"{players[current_player]} wins!")
             pygame.display.update()
             pygame.time.wait(2500)  # Wait for 2 seconds
             run = False
@@ -45,6 +49,8 @@ def main():
             pygame.display.update()
             pygame.time.wait(2500)
             run = False
+
+        print(f"It's {players[current_player]}'s turn.")
 
     pygame.quit()
 
