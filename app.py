@@ -3,7 +3,6 @@ from visual import draw_grid, draw_popup
 from logic import game_condition
 from globals import SQUARE_SIZE, board
 
-
         
 def main():
     pygame.init()
